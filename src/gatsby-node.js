@@ -4,7 +4,6 @@ const axios = require('axios');
 // TODO: That Meetup token can expire. Would be good to check if it's valid
 //       and if it's not, do the refresh song and dance.
 
-
 async function fetchMeetupEvents(token, groups) {
   let groupNames = groups.map(group => group.replace(/-/g, ''));
   let groupUrls = groups.map(group => {
