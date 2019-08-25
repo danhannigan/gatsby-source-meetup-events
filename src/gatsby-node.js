@@ -16,17 +16,17 @@ async function fetchMeetupEvents(token, groups) {
 function processEvents(event) {
   return {
     ...event,
-    id: `Meetup-${event.id}`,
+    id: createNodeId(`meetupEvent-${event.id}`),
     parent: null,
     children: null,
     internal: {
       type: "MeetupEvents",
-      contentDigest: `MeetupEvents-${event.id}`
+      contentDigest: createContentDigest(meetupEvent)
     },
   }
 }
 
-exports.sourceNodes = async ({ actions }, options = {}) => {
+exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }, options = {}) => {
   const token = options.token || null;
   if (!token) throw new Error("No Meetup Token set.");
 
