@@ -27,14 +27,14 @@
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5"
   },
-  "main": "dist/gatsby-node.js",
+  "main": "./dist/gatsby-node.js",
   "files": [
-    "dist/"
+    "./dist"
   ],
   "scripts": {
     "clean": "rm -rf ./dist",
+    "prepare": "yarn build",
     "build": "babel src --out-dir ./dist --ignore __tests__",
-    "prepublish": "yarn build",
     "watch": "babel -w src --out-dir ./dist --ignore **/__tests__"
   },
   "peerDependencies": {
