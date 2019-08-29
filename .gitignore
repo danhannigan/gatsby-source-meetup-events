@@ -2,3 +2,5 @@ node_modules/
 yarn.lock
 gatsby-node.js
 yarn-error.log
+dist
+dist/*
