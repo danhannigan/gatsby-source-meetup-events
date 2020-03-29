@@ -1,5 +1,6 @@
 node_modules/
 yarn.lock
+package-lock.json
 gatsby-node.js
 yarn-error.log
 dist
