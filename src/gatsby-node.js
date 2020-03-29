@@ -32,11 +32,10 @@ exports.sourceNodes = async ({ actions }, options = {}) => {
   );
   const responseData = validResults.map(res => res.data);
   const mergedData = [].concat(...responseData);
-  mergedData.forEach(group => {
-    group.data.map(event => {
-      const node = processEvents(event);
-      createNode(node);
-    });
+
+  mergedData.map(event => {
+    const node = processEvents(event);
+    createNode(node);
   });
 
   return;
