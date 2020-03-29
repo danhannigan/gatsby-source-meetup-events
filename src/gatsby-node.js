@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-async function fetchMeetupEvents(token, groups) {
+async function fetchMeetupEvents(groups) {
   let groupNames = groups.map(group => group.replace(/-/g, ""));
   let groupUrls = groups.map(group => {
     return axios.get(`https://api.meetup.com/${group}/events?page=3`);
@@ -22,15 +22,17 @@ function processEvents(event) {
 }
 
 exports.sourceNodes = async ({ actions }, options = {}) => {
-  const token = options.token || null;
-  if (!token) throw new Error("No Meetup Token set.");
-
   const groups = options.groups || [];
   if (!groups) throw new Error("No Groups Set");
 
   const { createNode } = actions;
-  const groupResponse = await fetchMeetupEvents(token, groups);
-  groupResponse.forEach(group => {
+  const groupResponse = await fetchMeetupEvents(groups);
+  const validResults = groupResponse.filter(
+    result => !(result instanceof Error)
+  );
+  const responseData = validResults.map(res => res.data);
+  const mergedData = [].concat(...responseData);
+  mergedData.forEach(group => {
     group.data.map(event => {
       const node = processEvents(event);
       createNode(node);
